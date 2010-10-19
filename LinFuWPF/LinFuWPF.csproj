@@ -85,6 +85,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CooperatingLibrary\CooperatingLibrary.csproj">
+      <Project>{29C51916-FD65-4531-A58B-5EFB991A9178}</Project>
+      <Name>CooperatingLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LinFuInterceptorTools\LinFuInterceptorTools.csproj">
       <Project>{B04AE236-E1F5-4D04-83F8-77EF608639C1}</Project>
       <Name>LinFuInterceptorTools</Name>
@@ -92,6 +96,10 @@
     <ProjectReference Include="..\ModifiedLibrary\ModifiedLibrary.csproj">
       <Project>{D4A2FE95-B0BF-43B3-9B2E-96AA7E7D4961}</Project>
       <Name>ModifiedLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFCoreTools\WPFCoreTools.csproj">
+      <Project>{AA411974-A0AB-475C-B9C4-5F0E4AC4DEF9}</Project>
+      <Name>WPFCoreTools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

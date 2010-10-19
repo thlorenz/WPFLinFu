@@ -1,7 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
+using CooperatingLibrary.ViewModels;
+using CooperatingLibrary.Views;
 using LinFu.AOP.Interfaces;
 using LinFuInterceptorTools;
 using ModifiedLibrary.ViewModels;
+using WPFCoreTools;
 
 namespace LinFuWPF
 {
@@ -14,6 +19,28 @@ namespace LinFuWPF
         {
             base.OnStartup(e);
 
+            PlayWithCooperatingLibrary();
+        }
+
+        void PlayWithCooperatingLibrary()
+        {
+            var aroundInvokeProvider = new SimpleAroundInvokeProvider(new SimpleAroundInvoke { AfterInvokeDelegate = RaisePropertyChanged });
+            AroundMethodBodyRegistry.AddProvider(aroundInvokeProvider);
+
+            var view = new CoopView(new CoopViewModel());
+            var win = new Window { Topmost = true, Content = view, SizeToContent = SizeToContent.WidthAndHeight };
+            win.Show();
+        }
+
+        void RaisePropertyChanged(IInvocationInfo info, object returnValue)
+        {
+            var vm = info.Target as NotifyPropertyChanged;
+            if (vm != null)
+                vm.RaisePropertyChanged(info.TargetMethod.Name);
+        }
+
+        void PlayWithModifiedLibrary()
+        {
             var vm = new MainViewModel();
             
             MethodBodyReplacementProviderRegistry.SetProvider(new MethodReplacementProvider<MainViewModel>());
