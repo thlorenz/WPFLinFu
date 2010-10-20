@@ -4,6 +4,8 @@ using System.Windows;
 using CooperatingLibrary.ViewModels;
 using CooperatingLibrary.Views;
 using LinFu.AOP.Interfaces;
+using LinFu.Proxy;
+using LinFu.Proxy.Interfaces;
 using LinFuInterceptorTools;
 using ModifiedLibrary.ViewModels;
 using WPFCoreTools;
@@ -24,12 +26,25 @@ namespace LinFuWPF
 
         void PlayWithCooperatingLibrary()
         {
-            var aroundInvokeProvider = new SimpleAroundInvokeProvider(new SimpleAroundInvoke { AfterInvokeDelegate = RaisePropertyChanged });
-            AroundMethodBodyRegistry.AddProvider(aroundInvokeProvider);
+          
+            var coopViewModel = new CoopViewModel();
 
-            var view = new CoopView(new CoopViewModel());
+            IInvokeWrapper aroundInvokeWrapper = new SimpleAroundInvokeWrapper<CoopViewModel>(coopViewModel) { AfterInvokeDelegate = RaisePropertyChanged };
+              var proxyFactory = new ProxyFactory();
+            proxyFactory.CreateProxy(aroundInvokeWrapper);
+
+            var view = new CoopView(coopViewModel);
             var win = new Window { Topmost = true, Content = view, SizeToContent = SizeToContent.WidthAndHeight };
             win.Show();
+        }
+
+        void PlayWithModifiedLibrary()
+        {
+            var vm = new MainViewModel();
+
+            MethodBodyReplacementProviderRegistry.SetProvider(new MethodReplacementProvider<MainViewModel>());
+
+            vm.CheckCount();
         }
 
         void RaisePropertyChanged(IInvocationInfo info, object returnValue)
@@ -37,15 +52,6 @@ namespace LinFuWPF
             var vm = info.Target as NotifyPropertyChanged;
             if (vm != null)
                 vm.RaisePropertyChanged(info.TargetMethod.Name);
-        }
-
-        void PlayWithModifiedLibrary()
-        {
-            var vm = new MainViewModel();
-            
-            MethodBodyReplacementProviderRegistry.SetProvider(new MethodReplacementProvider<MainViewModel>());
-
-            vm.CheckCount();
         }
     }
 }
