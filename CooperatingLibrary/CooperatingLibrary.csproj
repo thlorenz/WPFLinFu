@@ -51,6 +51,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LinFuInterceptorTools\LinFuInterceptorTools.csproj">
+      <Project>{B04AE236-E1F5-4D04-83F8-77EF608639C1}</Project>
+      <Name>LinFuInterceptorTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WPFCoreTools\WPFCoreTools.csproj">
       <Project>{AA411974-A0AB-475C-B9C4-5F0E4AC4DEF9}</Project>
       <Name>WPFCoreTools</Name>

@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NotifyPropertyChanged.cs" />
+    <Compile Include="IViewModel.cs" />
+    <Compile Include="RaisePropertyChangeAttribute.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleCommand.cs" />
   </ItemGroup>

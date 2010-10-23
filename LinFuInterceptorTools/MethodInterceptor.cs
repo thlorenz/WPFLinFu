@@ -11,7 +11,7 @@ namespace LinFuInterceptorTools
 
             Console.WriteLine("method '{0}' called", methodName);
 
-            return null;
+            return info.TargetMethod;
         }
     }
 }

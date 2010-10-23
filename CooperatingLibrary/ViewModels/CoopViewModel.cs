@@ -1,15 +1,22 @@
+using System;
 using System.Windows.Input;
+using LinFuInterceptorTools;
 using WPFCoreTools;
 
 namespace CooperatingLibrary.ViewModels
 {
-    public class CoopViewModel : NotifyPropertyChanged
+    public class CoopViewModel : ViewModelBase
     {
         int _counter;
 
-        public CoopViewModel()
+        public void InitializeCommand()
         {
-            AddOneCommand = new SimpleCommand { ExecuteDelegate = _ => Counter++ };
+            AddOneCommand = new SimpleCommand { ExecuteDelegate = AddOne };
+        }
+
+        public void AddOne(object _)
+        {
+            Counter++;
         }
 
         public virtual int Counter
@@ -18,7 +25,8 @@ namespace CooperatingLibrary.ViewModels
             set
             {
                 _counter = value;
-             //   RaisePropertyChanged(() => Counter);
+                Console.WriteLine("Counter is now {0}", _counter);
+                RaisePropertyChanged("Counter");
             }
         }
 

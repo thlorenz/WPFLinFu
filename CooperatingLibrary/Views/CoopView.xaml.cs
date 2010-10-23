@@ -8,6 +8,8 @@ namespace CooperatingLibrary.Views
     /// </summary>
     public partial class CoopView : UserControl
     {
+        CoopViewModel _viewModel;
+
         public CoopView()
         {
             InitializeComponent();
@@ -16,7 +18,8 @@ namespace CooperatingLibrary.Views
         public CoopView(CoopViewModel coopViewModel)
             : this()
         {
-            DataContext = coopViewModel;
+            DataContext = _viewModel = coopViewModel;
+            _viewModel.InitializeCommand();
         }
     }
 }

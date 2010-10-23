@@ -1,10 +1,8 @@
-using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 
 namespace WPFCoreTools
 {
-    public class NotifyPropertyChanged : INotifyPropertyChanged
+    public class ViewModelBase : IViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 

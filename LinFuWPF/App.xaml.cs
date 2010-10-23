@@ -29,29 +29,14 @@ namespace LinFuWPF
           
             var coopViewModel = new CoopViewModel();
 
-            IInvokeWrapper aroundInvokeWrapper = new SimpleAroundInvokeWrapper<CoopViewModel>(coopViewModel) { AfterInvokeDelegate = RaisePropertyChanged };
-              var proxyFactory = new ProxyFactory();
-            proxyFactory.CreateProxy(aroundInvokeWrapper);
+            var proxyFactory = new ProxyFactory();
+            var proxy = proxyFactory.CreateProxy<CoopViewModel>(new ViewModelInvokeWrapper<CoopViewModel>(coopViewModel), typeof(IViewModel));
 
-            var view = new CoopView(coopViewModel);
+            // When using coopViewModel directly, the bindings are updated correctly, when using the proxy the binding update breaks
+            var view = new CoopView(coopViewModel /* proxy */);
             var win = new Window { Topmost = true, Content = view, SizeToContent = SizeToContent.WidthAndHeight };
-            win.Show();
+             win.Show();
         }
-
-        void PlayWithModifiedLibrary()
-        {
-            var vm = new MainViewModel();
-
-            MethodBodyReplacementProviderRegistry.SetProvider(new MethodReplacementProvider<MainViewModel>());
-
-            vm.CheckCount();
-        }
-
-        void RaisePropertyChanged(IInvocationInfo info, object returnValue)
-        {
-            var vm = info.Target as NotifyPropertyChanged;
-            if (vm != null)
-                vm.RaisePropertyChanged(info.TargetMethod.Name);
-        }
+       
     }
 }

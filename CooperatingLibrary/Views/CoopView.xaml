@@ -7,6 +7,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" MinHeight="100" MinWidth="300">
         <Button Content="Add One" Command="{Binding AddOneCommand}"  Margin="5" VerticalAlignment="Center"/>
-        <TextBlock Text="{Binding Counter}" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding Counter}" Margin="5" VerticalAlignment="Center" />
     </StackPanel>
 </UserControl>
